@@ -1035,6 +1035,19 @@ body.admin-page #root {
     /* Table cards */
     .table-card {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-left: -12px;
+        margin-right: -12px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    
+    .table-card table {
+        min-width: 800px;
+    }
+    
+    .table-card td {
+        white-space: nowrap;
     }
 }
 
