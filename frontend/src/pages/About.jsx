@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-// import '../styles/about_us.css'; // Add this to App.jsx instead
+import { projectImage } from '../lib/checkoutUtils';
 
 export default function About() {
   return (
@@ -42,7 +41,7 @@ export default function About() {
 
         <div className="image-side">
           <div className="image-wrapper">
-            <img src="/icream.png" alt="Ice Cream Bowl" />
+            <img src={projectImage('images/icream.png')} alt="Ice Cream Bowl" />
 
             <div className="decoration butterfly" aria-hidden="true">🦋</div>
             <div className="decoration flower" aria-hidden="true">🌸</div>
