@@ -916,6 +916,7 @@ body.admin-page #root {
     padding: 0 20px 24px;
     width: 100%;
     box-sizing: border-box;
+    overflow: auto; /* desktop: full scroll */
 }
 
 .admin-shell .topbar {
@@ -973,9 +974,7 @@ body.admin-page #root {
     /* Sidebar slides off-screen by default */
     .sidebar {
         position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
+        top: 0; left: 0; bottom: 0;
         z-index: 300;
         transform: translateX(-100%);
         transition: transform 0.25s ease;
@@ -983,21 +982,20 @@ body.admin-page #root {
         box-shadow: none;
     }
 
-    /* When open */
     .sidebar.sidebar-open {
         transform: translateX(0);
-        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
     }
 
-    /* Main area takes full width */
-    .main {
+    /* Main takes full width, clips sidebar overflow */
+    .admin-shell .main {
         width: 100%;
         min-width: 0;
-        overflow: hidden; /* prevent double scrollbars */
+        overflow: hidden;
     }
 
-    /* Topbar adjustments */
-    .topbar {
+    /* Topbar */
+    .admin-shell .topbar {
         padding: 12px 16px;
         gap: 10px;
         flex-wrap: wrap;
@@ -1012,59 +1010,61 @@ body.admin-page #root {
         white-space: nowrap;
     }
 
-    /* Hide search bar on very small screens */
-    .search-bar {
-        display: none;
-    }
+    .search-bar { display: none; }
+    .avatar-info { display: none; }
+    .topbar-actions { gap: 8px; }
 
-    /* Avatar info hidden on tiny screens */
-    .avatar-info {
-        display: none;
-    }
-
-    /* KEY FIX: Stack panels vertically, and use overflow:visible so children
-       can create their own independent horizontal scroll zones */
-    .content {
-        padding: 0 12px 20px;
+    /* ── KEY FIX ──────────────────────────────────────
+       .admin-shell .content beats the specificity of
+       the base rule at line 915. We switch to a column
+       flex and remove overflow so child table-cards can
+       each scroll independently.
+    ──────────────────────────────────────────────── */
+    .admin-shell .content {
+        padding: 0 12px 80px; /* bottom pad for floating cart bar */
         flex-direction: column;
-        overflow: visible; /* Let children manage their own scrolling */
+        overflow: visible !important; /* children manage their own scroll */
         gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    /* center-panel takes full width and never clips children */
-    .center-panel {
+    /* Center-panel: full width, no overflow clipping */
+    .admin-shell .center-panel {
         width: 100%;
         min-width: 0;
         overflow: visible;
     }
 
-    /* right-panel goes below, full width */
-    .right-panel {
+    /* Right panel: full width, stacks below */
+    .admin-shell .right-panel {
         width: 100%;
         flex: none;
     }
 
-    /* Make stats/metric cards wrap */
+    /* Metric/stat cards: wrap on small screens */
     .metrics-row,
     .stat-cards {
         flex-wrap: wrap;
     }
 
-    /* Table cards: independently scrollable containers */
+    /* ── TABLE CARDS ────────────────────────────────
+       Each table-card becomes its own independent
+       horizontal scroll zone. We bleed it edge-to-edge
+       so it matches the "purchases" layout the user likes.
+    ──────────────────────────────────────────────── */
     .table-card {
-        overflow-x: auto;
+        overflow-x: auto !important;
         -webkit-overflow-scrolling: touch;
-        /* Extend beyond the 12px padding so table reaches edge-to-edge */
-        margin-left: -12px;
-        margin-right: -12px;
-        border-radius: 0; /* remove radius so edge-to-edge looks clean */
+        border-radius: 0;
         border-left: none;
         border-right: none;
+        margin-left: -12px;
+        margin-right: -12px;
     }
 
-    /* Force table to its natural wide width - DO NOT constrain it */
     .table-card table {
-        min-width: 700px;
+        min-width: 650px;
         width: max-content;
     }
 
@@ -1073,44 +1073,34 @@ body.admin-page #root {
         white-space: nowrap;
     }
 
-    /* section-stack should not clip its children */
+    /* Section stack should not clip horizontally scrolling children */
     .section-stack {
         overflow: visible;
         min-width: 0;
     }
 
-    /* header card responsive: stack vertically */
+    /* Header card: stack vertically */
     .inv-header-top {
         flex-direction: column;
         gap: 10px;
     }
 
-    .inv-admin-info {
-        text-align: left;
-    }
+    .inv-admin-info { text-align: left; }
 
     .inv-meta {
         flex-direction: column;
         gap: 12px;
     }
 
-    /* form grid: single column on mobile */
+    /* Form: single column on mobile */
     .form-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
-    .topbar {
-        padding: 10px 12px;
-    }
-
-    .topbar-actions {
-        gap: 8px;
-    }
-
-    .content {
-        padding: 0 8px 16px;
+    .admin-shell .content {
+        padding: 0 8px 80px;
     }
 
     .table-card {
