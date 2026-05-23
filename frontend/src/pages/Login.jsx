@@ -55,6 +55,12 @@ export default function Login() {
     setLoading(true);
 
     try {
+      // Allow a pseudo password "faith" for admin by appending "1" to meet Supabase's 6 char minimum
+      let finalPassword = password;
+      if (username.toLowerCase() === 'jireh' && password === 'faith') {
+        finalPassword = 'faith1';
+      }
+
       const { data: profileForLogin, error: lookupError } = await supabase
         .from('profiles')
         .select('email')
@@ -67,7 +73,7 @@ export default function Login() {
 
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email: profileForLogin.email,
-        password: password,
+        password: finalPassword,
       });
 
       if (signInError) {
