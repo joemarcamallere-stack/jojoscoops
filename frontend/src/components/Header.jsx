@@ -87,7 +87,7 @@ export default function Header() {
                   Log Out
                 </button>
               </>
-            ) : !isAdminOrStaff ? (
+            ) : (
               <>
                 <button
                   type="button"
@@ -105,7 +105,7 @@ export default function Header() {
                   Log In
                 </button>
               </>
-            ) : null}
+            )}
           </div>
 
           {/* Hamburger Button */}
@@ -147,7 +147,7 @@ export default function Header() {
                     Log Out
                   </button>
                 </>
-              ) : !isAdminOrStaff ? (
+              ) : (
                 <>
                   <button type="button" className="btn-contact mobile-auth-btn"
                     style={{ background: '#fff', color: '#000', border: '1px solid #000' }}
@@ -159,7 +159,7 @@ export default function Header() {
                     Log In
                   </button>
                 </>
-              ) : null}
+              )}
             </div>
           </nav>
         </div>
