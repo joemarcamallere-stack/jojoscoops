@@ -1,8 +1,8 @@
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useLayoutEffect, useState, useRef, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
-import '../styles/login.css';
+import '../styles/login.css'; 
 import { useToast } from '../context/ToastContext';
 
 export default function Login() {
@@ -35,16 +35,12 @@ export default function Login() {
     }
   }, [location.state, location.pathname, navigate]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.state?.showForm) {
-      // Small delay to ensure DOM is ready and scroll happens
-      setTimeout(() => {
-        if (scrollRef.current) {
-          scrollRef.current.scrollTo({ left: scrollRef.current.offsetWidth, behavior: 'smooth' });
-          setActiveDot(1);
-        }
-      }, 50);
-      // Clean up state so we don't keep scrolling on re-renders
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft = scrollRef.current.offsetWidth;
+        setActiveDot(1);
+      }
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [location.state, location.pathname, navigate]);

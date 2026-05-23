@@ -325,19 +325,23 @@ body.auth-page {
         flex: 0 0 100vw; /* Each panel is exactly 1 screen wide */
         width: 100vw;
         scroll-snap-align: center;
-        padding: 0 6%; /* Inner padding so content isn't on edge */
+        padding: 0 20px; /* Standard padding */
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .login-card {
-        margin: 0 6%; /* Slight margin so card looks nice */
-        width: 88vw;
-        flex: 0 0 88vw;
+        margin: 0; 
+        width: 100%;
+        max-width: 400px;
     }
 
     .login-header {
         margin-bottom: 20px;
-        padding: 0 6%;
+        padding: 0 20px;
     }
 
     /* Center the intro text on mobile */

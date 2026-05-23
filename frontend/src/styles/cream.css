@@ -426,76 +426,10 @@ body {
 /* Grid Layout */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-    .product-grid {
-        gap: 8px;
-    }
-    
-    .product-card-body {
-        padding: 10px 8px 12px;
-    }
-    
-    .product-card h3 {
-        font-size: 0.85rem;
-        margin: 0 0 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    .product-description {
-        display: none; /* Hide description to save space on tiny 3-col grid */
-    }
-    
-    .price-stock-row {
-        grid-template-columns: 1fr;
-        gap: 6px;
-        margin-bottom: 8px;
-    }
-    
-    .price-stock-row div {
-        padding: 6px;
-    }
-    
-    .price-stock-row span {
-        font-size: 0.65rem;
-    }
-    
-    .price-stock-row strong {
-        font-size: 0.8rem;
-    }
-    
-    .quantity-field input {
-        padding: 6px 8px;
-        font-size: 0.8rem;
-    }
-    
-    .card-actions {
-        flex-direction: column;
-    }
-    
-    .card-actions button {
-        padding: 8px !important;
-        font-size: 0.75rem !important;
-    }
-    
-    .image-container {
-        height: 100px;
-        margin-bottom: 5px;
-    }
-    
-    .badge {
-        font-size: 9px;
-        padding: 2px 4px;
-        top: 5px;
-        left: 5px;
-    }
 }
 
 .loading-state,
