@@ -329,17 +329,17 @@ body.auth-page {
         flex: 0 0 100vw; /* Each panel is exactly 1 screen wide */
         width: 100vw;
         scroll-snap-align: center;
-        padding: 20px 20px 60px; /* Add bottom padding so keyboard doesn't hide inputs */
+        padding: 40px 20px 80px; /* Generous padding for keyboard space */
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* Prevent vertical centering from pushing inputs down */
+        justify-content: safe center; /* Safely center, fallback to flex-start on overflow */
         align-items: center;
         overflow-y: auto;
     }
 
     .login-card {
-        margin: auto; 
+        margin: 0; 
         width: 100%;
         max-width: 400px;
     }
@@ -355,7 +355,7 @@ body.auth-page {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin: auto;
+        margin: 0;
     }
     
     .login-intro p {
