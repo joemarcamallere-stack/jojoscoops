@@ -26,7 +26,7 @@ export default function Testimonial() {
   return (
     <main className="orders-page page-shell" style={{ margin: '0 6%', textAlign: 'center' }}>
       <section className="orders-hero" style={{ margin: '24px 0 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div className="orders-hero-copy" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', margin: '0 auto' }}>
+        <div className="orders-hero-copy" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 auto' }}>
           <p className="section-kicker">Customer stories</p>
           <h1>Testimonials</h1>
           <p>
@@ -54,7 +54,7 @@ export default function Testimonial() {
         </div>
       </section>
 
-      <section className="orders-card" style={{ margin: '40px auto', maxWidth: '900px' }}>
+      <section className="orders-card" style={{ margin: '40px auto' }}>
         <div className="orders-list" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {REVIEWS.map((review) => (
             <article key={review.name} className="order-card" style={{ cursor: 'default', textAlign: 'center' }}>
