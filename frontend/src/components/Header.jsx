@@ -8,7 +8,10 @@ export default function Header() {
   const navigate = useNavigate();
   const [cartCount, setCartCount] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, profile, logout } = useAuth();
+  const { user, profile, loading, logout } = useAuth();
+  // Only show logged-in customer UI when we have a confirmed user-role profile
+  const isCustomer = !loading && user && profile?.role === 'user';
+  const isAdminOrStaff = !loading && user && (profile?.role === 'admin' || profile?.role === 'staff');
 
   const refreshCount = () => {
     fetchCartCount()
@@ -65,7 +68,7 @@ export default function Header() {
           </Link>
           {/* Desktop auth buttons */}
           <div className="desktop-auth">
-            {user && profile?.role === 'user' ? (
+            {isCustomer ? (
               <>
                 <button
                   type="button"
@@ -84,7 +87,7 @@ export default function Header() {
                   Log Out
                 </button>
               </>
-            ) : (
+            ) : !isAdminOrStaff ? (
               <>
                 <button
                   type="button"
@@ -102,7 +105,7 @@ export default function Header() {
                   Log In
                 </button>
               </>
-            )}
+            ) : null}
           </div>
 
           {/* Hamburger Button */}
@@ -131,7 +134,7 @@ export default function Header() {
             <Link to="/orders" onClick={() => setMenuOpen(false)}>My Orders</Link>
             <Link to="/testimonial" onClick={() => setMenuOpen(false)}>Testimonial</Link>
             <div className="mobile-nav-auth">
-              {user && profile?.role === 'user' ? (
+              {isCustomer ? (
                 <>
                   <button type="button" className="btn-contact mobile-auth-btn"
                     style={{ background: 'transparent', color: 'var(--primary-pink, #ff4d8d)', border: '1px solid rgba(255,77,141,0.3)' }}
@@ -144,7 +147,7 @@ export default function Header() {
                     Log Out
                   </button>
                 </>
-              ) : (
+              ) : !isAdminOrStaff ? (
                 <>
                   <button type="button" className="btn-contact mobile-auth-btn"
                     style={{ background: '#fff', color: '#000', border: '1px solid #000' }}
@@ -156,7 +159,7 @@ export default function Header() {
                     Log In
                   </button>
                 </>
-              )}
+              ) : null}
             </div>
           </nav>
         </div>
