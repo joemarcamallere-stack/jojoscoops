@@ -300,7 +300,9 @@ body.auth-page {
 
 @media (max-width: 920px) {
     .login-page {
-        padding: 20px 0; /* Remove horizontal padding so panels touch edges */
+        margin: 0 calc(-50vw + 50%); /* Perfectly break out of parent body padding */
+        width: 100vw;
+        padding: 20px 0;
         position: relative;
         overflow: hidden; /* Prevent page-level scroll */
     }
@@ -314,7 +316,7 @@ body.auth-page {
         -ms-overflow-style: none; /* IE/Edge */
         width: 100vw;
         gap: 0;
-        margin-left: -6%; /* Offset body padding */
+        margin-left: 0; 
     }
 
     .login-hero::-webkit-scrollbar {

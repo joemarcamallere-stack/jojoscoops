@@ -17,6 +17,7 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const { showToast } = useToast();
+  const [ready, setReady] = useState(!location.state?.showForm);
 
   useEffect(() => {
     document.body.classList.add('auth-page');
@@ -38,8 +39,15 @@ export default function Login() {
   useLayoutEffect(() => {
     if (location.state?.showForm) {
       if (scrollRef.current) {
+        scrollRef.current.style.scrollBehavior = 'auto';
         scrollRef.current.scrollLeft = scrollRef.current.offsetWidth;
         setActiveDot(1);
+        requestAnimationFrame(() => {
+          if (scrollRef.current) scrollRef.current.style.scrollBehavior = '';
+          setReady(true);
+        });
+      } else {
+        setReady(true);
       }
       navigate(location.pathname, { replace: true, state: {} });
     }
@@ -121,7 +129,7 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <main className="login-hero" ref={scrollRef} onScroll={handleScroll}>
+      <main className="login-hero" ref={scrollRef} onScroll={handleScroll} style={{ opacity: ready ? 1 : 0, transition: 'opacity 0.15s ease' }}>
         <section className="login-intro login-snap-panel" aria-label="Brand messaging">
           <p className="intro-kicker">Welcome back</p>
           <h1>Sign in to keep your <span className="accent">creamy cravings</span> curated.</h1>
