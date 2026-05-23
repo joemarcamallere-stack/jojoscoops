@@ -993,6 +993,7 @@ body.admin-page #root {
     .main {
         width: 100%;
         min-width: 0;
+        overflow: hidden; /* prevent double scrollbars */
     }
 
     /* Topbar adjustments */
@@ -1021,12 +1022,23 @@ body.admin-page #root {
         display: none;
     }
 
-    /* Content padding */
+    /* KEY FIX: Stack panels vertically, and use overflow:visible so children
+       can create their own independent horizontal scroll zones */
     .content {
         padding: 0 12px 20px;
         flex-direction: column;
+        overflow: visible; /* Let children manage their own scrolling */
+        gap: 16px;
     }
 
+    /* center-panel takes full width and never clips children */
+    .center-panel {
+        width: 100%;
+        min-width: 0;
+        overflow: visible;
+    }
+
+    /* right-panel goes below, full width */
     .right-panel {
         width: 100%;
         flex: none;
@@ -1038,22 +1050,53 @@ body.admin-page #root {
         flex-wrap: wrap;
     }
 
-    /* Table cards */
+    /* Table cards: independently scrollable containers */
     .table-card {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        /* Extend beyond the 12px padding so table reaches edge-to-edge */
         margin-left: -12px;
         margin-right: -12px;
-        padding-left: 12px;
-        padding-right: 12px;
+        border-radius: 0; /* remove radius so edge-to-edge looks clean */
+        border-left: none;
+        border-right: none;
     }
-    
+
+    /* Force table to its natural wide width - DO NOT constrain it */
     .table-card table {
-        min-width: 800px;
+        min-width: 700px;
+        width: max-content;
     }
-    
+
+    .table-card th,
     .table-card td {
         white-space: nowrap;
+    }
+
+    /* section-stack should not clip its children */
+    .section-stack {
+        overflow: visible;
+        min-width: 0;
+    }
+
+    /* header card responsive: stack vertically */
+    .inv-header-top {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .inv-admin-info {
+        text-align: left;
+    }
+
+    .inv-meta {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* form grid: single column on mobile */
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1068,5 +1111,10 @@ body.admin-page #root {
 
     .content {
         padding: 0 8px 16px;
+    }
+
+    .table-card {
+        margin-left: -8px;
+        margin-right: -8px;
     }
 }
