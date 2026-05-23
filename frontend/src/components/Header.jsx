@@ -66,24 +66,45 @@ export default function Header() {
           {/* Desktop auth buttons */}
           <div className="desktop-auth">
             {user ? (
-              <>
-                <button
-                  type="button"
-                  className="btn-contact"
-                  style={{ background: 'transparent', color: 'var(--primary-pink, #ff4d8d)', border: '1px solid rgba(255,77,141,0.3)' }}
-                  onClick={() => navigate(accountLink())}
-                >
-                  Hi, {profile?.fullname?.split(' ')[0] || 'there'}
-                </button>
-                <button
-                  type="button"
-                  className="btn-contact"
-                  style={{ background: '#ff4d8d', color: '#fff', border: 'none' }}
-                  onClick={handleLogout}
-                >
-                  Log Out
-                </button>
-              </>
+              profile?.role === 'admin' || profile?.role === 'staff' ? (
+                <>
+                  <button
+                    type="button"
+                    className="btn-contact"
+                    style={{ background: 'transparent', color: 'var(--primary-pink, #ff4d8d)', border: '1px solid rgba(255,77,141,0.3)' }}
+                    onClick={() => navigate(accountLink())}
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-contact"
+                    style={{ background: '#ff4d8d', color: '#fff', border: 'none' }}
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className="btn-contact"
+                    style={{ background: 'transparent', color: 'var(--primary-pink, #ff4d8d)', border: '1px solid rgba(255,77,141,0.3)' }}
+                    onClick={() => navigate(accountLink())}
+                  >
+                    Hi, {profile?.fullname?.split(' ')[0] || 'there'}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-contact"
+                    style={{ background: '#ff4d8d', color: '#fff', border: 'none' }}
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+                </>
+              )
             ) : (
               <>
                 <button
@@ -132,18 +153,33 @@ export default function Header() {
             <Link to="/testimonial" onClick={() => setMenuOpen(false)}>Testimonial</Link>
             <div className="mobile-nav-auth">
               {user ? (
-                <>
-                  <button type="button" className="btn-contact mobile-auth-btn"
-                    style={{ background: 'transparent', color: 'var(--primary-pink, #ff4d8d)', border: '1px solid rgba(255,77,141,0.3)' }}
-                    onClick={() => handleNav(accountLink())}>
-                    Hi, {profile?.fullname?.split(' ')[0] || 'there'}
-                  </button>
-                  <button type="button" className="btn-contact mobile-auth-btn"
-                    style={{ background: '#ff4d8d', color: '#fff', border: 'none' }}
-                    onClick={handleLogout}>
-                    Log Out
-                  </button>
-                </>
+                profile?.role === 'admin' || profile?.role === 'staff' ? (
+                  <>
+                    <button type="button" className="btn-contact mobile-auth-btn"
+                      style={{ background: 'transparent', color: 'var(--primary-pink, #ff4d8d)', border: '1px solid rgba(255,77,141,0.3)' }}
+                      onClick={() => handleNav(accountLink())}>
+                      Dashboard
+                    </button>
+                    <button type="button" className="btn-contact mobile-auth-btn"
+                      style={{ background: '#ff4d8d', color: '#fff', border: 'none' }}
+                      onClick={handleLogout}>
+                      Log Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button type="button" className="btn-contact mobile-auth-btn"
+                      style={{ background: 'transparent', color: 'var(--primary-pink, #ff4d8d)', border: '1px solid rgba(255,77,141,0.3)' }}
+                      onClick={() => handleNav(accountLink())}>
+                      Hi, {profile?.fullname?.split(' ')[0] || 'there'}
+                    </button>
+                    <button type="button" className="btn-contact mobile-auth-btn"
+                      style={{ background: '#ff4d8d', color: '#fff', border: 'none' }}
+                      onClick={handleLogout}>
+                      Log Out
+                    </button>
+                  </>
+                )
               ) : (
                 <>
                   <button type="button" className="btn-contact mobile-auth-btn"

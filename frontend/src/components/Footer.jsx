@@ -48,8 +48,9 @@ export default function Footer() {
         <div className="footer-column">
           <h3>Contact</h3>
           <a href="mailto:hello@jojos.com">hello@jojos.com</a>
-          <a href="tel:+10000000000">+1 (000) 000-0000</a>
-          <a href="#">Open Daily: 10 AM - 9 PM</a>
+          <a href="tel:+639123456789">+63 (912) 345-6789</a>
+          <a href="https://maps.google.com/?q=Loon,Bohol,Philippines" target="_blank" rel="noopener noreferrer">Loon, Bohol, Philippines</a>
+          <span style={{ color: 'var(--text-light)', fontSize: '14px', marginTop: '4px' }}>Open Daily: 10 AM - 9 PM</span>
         </div>
 
         <div className="footer-column">
