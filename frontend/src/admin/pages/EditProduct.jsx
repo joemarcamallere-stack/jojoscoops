@@ -8,17 +8,19 @@ export default function EditProduct() {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [message, setMessage] = useState('');
-  const [form, setForm] = useState({ name: '', description: '', price: '', stock: '', image: null });
+  const [form, setForm] = useState({ name: '', description: '', price: '', stock: '', category: '', size: '', image: null });
 
   useEffect(() => {
     fetchProduct(id).then((data) => {
       if (data.success && data.product) {
         setProduct(data.product);
         setForm({
-          name: data.product.name,
+          name: data.product.name || '',
           description: data.product.description || '',
-          price: String(data.product.price),
+          price: String(data.product.price || ''),
           stock: String(data.product.stock ?? 0),
+          category: data.product.category || '',
+          size: data.product.size || '',
           image: null,
         });
       }
@@ -33,7 +35,10 @@ export default function EditProduct() {
     fd.append('description', form.description);
     fd.append('price', form.price);
     fd.append('stock', form.stock);
+    fd.append('category', form.category);
+    fd.append('size', form.size);
     if (form.image) fd.append('image', form.image);
+    
     const res = await updateProduct(fd);
     setMessage(res.message || '');
     if (res.success) navigate('/admin/products');
@@ -77,6 +82,8 @@ export default function EditProduct() {
             <form onSubmit={handleSubmit}>
               <div className="form-grid">
                 <div className="form-row full"><label className="form-label">Name</label><div className="form-input"><input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div></div>
+                <div className="form-row"><label className="form-label">Category</label><div className="form-input"><input placeholder="e.g. ice_cream" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} /></div></div>
+                <div className="form-row"><label className="form-label">Size (ml)</label><div className="form-input"><input placeholder="e.g. 500ml" value={form.size} onChange={(e) => setForm({ ...form, size: e.target.value })} /></div></div>
                 <div className="form-row full"><label className="form-label">Description</label><div className="form-input"><textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></div></div>
                 <div className="form-row"><label className="form-label">Price</label><div className="form-input"><input type="number" step="0.01" min="0" required value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} /></div></div>
                 <div className="form-row"><label className="form-label">Stock</label><div className="form-input"><input type="number" min="0" required value={form.stock} onChange={(e) => setForm({ ...form, stock: e.target.value })} /></div></div>
