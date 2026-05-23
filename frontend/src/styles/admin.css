@@ -1024,6 +1024,12 @@ body.admin-page #root {
     /* Content padding */
     .content {
         padding: 0 12px 20px;
+        flex-direction: column;
+    }
+
+    .right-panel {
+        width: 100%;
+        flex: none;
     }
 
     /* Make stats/metric cards wrap */
