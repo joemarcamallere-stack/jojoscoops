@@ -76,6 +76,7 @@ export default function AdminLayout({ role, pageTitle, activePage, children }) {
   const [user, setUser] = useState({ fullname: role === 'admin' ? 'Admin' : 'Staff', username: '' });
   const [loggingOut, setLoggingOut] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const nav = role === 'admin' ? adminNav : staffNav;
   const initial = (user.fullname || 'A').charAt(0).toUpperCase();
 
@@ -145,7 +146,15 @@ export default function AdminLayout({ role, pageTitle, activePage, children }) {
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
       <div className="gradient-banner" />
       <div className="app">
-        <aside className="sidebar">
+        {/* Mobile overlay to close sidebar */}
+        {sidebarOpen && (
+          <div
+            className="admin-sidebar-overlay"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
+        <aside className={`sidebar${sidebarOpen ? ' sidebar-open' : ''}`}>
           <div className="logo">
             <div className="logo-icon logo-icon-creamy">
               <CreamyIcon size={22} />
@@ -158,6 +167,7 @@ export default function AdminLayout({ role, pageTitle, activePage, children }) {
               key={item.key}
               className={`nav-item ${resolvedActivePage === item.key ? 'active' : ''}`}
               to={item.path}
+              onClick={() => setSidebarOpen(false)}
             >
               <span className="nav-icon"><NavIcon type={item.icon} /></span>
               {item.label}
@@ -179,6 +189,15 @@ export default function AdminLayout({ role, pageTitle, activePage, children }) {
 
         <div className="main">
           <div className="topbar">
+            {/* Hamburger for mobile */}
+            <button
+              type="button"
+              className="admin-hamburger"
+              onClick={() => setSidebarOpen((v) => !v)}
+              aria-label="Toggle sidebar"
+            >
+              <span /><span /><span />
+            </button>
             <div className="topbar-title">{pageTitle}</div>
             <div className="search-bar">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0A0BB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

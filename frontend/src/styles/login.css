@@ -293,38 +293,40 @@ body.auth-page {
     text-decoration: none;
 }
 
+/* ── Mobile: horizontal scroll (keep 2-col layout, scroll right) ── */
 @media (max-width: 920px) {
     .login-page {
-        padding: 24px;
+        padding: 20px;
+        overflow-x: auto;
     }
 
+    /* Keep the hero as a side-by-side row — do NOT stack */
     .login-hero {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(280px, 420px) minmax(300px, 380px);
         gap: 24px;
+        /* Allow the row to be wider than the screen; user scrolls horizontally */
+        min-width: max-content;
     }
 
     .login-header {
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
 }
 
 @media (max-width: 560px) {
     .login-page {
-        padding: 20px;
+        padding: 16px;
+        margin-left: -4%;
+        margin-right: -4%;
+    }
+
+    .login-hero {
+        grid-template-columns: minmax(260px, 360px) minmax(280px, 340px);
+        gap: 16px;
     }
 
     .login-card {
-        padding: 24px;
-    }
-
-    .login-header {
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .header-actions {
-        justify-content: flex-start;
+        padding: 20px;
     }
 }
 
