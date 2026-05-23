@@ -293,38 +293,81 @@ body.auth-page {
     text-decoration: none;
 }
 
-/* ── Mobile: horizontal scroll (keep 2-col layout, scroll right) ── */
+/* ── Mobile: horizontal scroll snap (exact screen width) ── */
+.login-dots {
+    display: none;
+}
+
 @media (max-width: 920px) {
     .login-page {
-        padding: 20px;
-        overflow-x: auto;
+        padding: 20px 0; /* Remove horizontal padding so panels touch edges */
+        position: relative;
+        overflow: hidden; /* Prevent page-level scroll */
     }
 
-    /* Keep the hero as a side-by-side row — do NOT stack */
     .login-hero {
-        grid-template-columns: minmax(280px, 420px) minmax(300px, 380px);
-        gap: 24px;
-        /* Allow the row to be wider than the screen; user scrolls horizontally */
-        min-width: max-content;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+        width: 100vw;
+        gap: 0;
+        margin-left: -6%; /* Offset body padding */
+    }
+
+    .login-hero::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    .login-snap-panel {
+        flex: 0 0 100vw; /* Each panel is exactly 1 screen wide */
+        width: 100vw;
+        scroll-snap-align: center;
+        padding: 0 6%; /* Inner padding so content isn't on edge */
+        box-sizing: border-box;
+    }
+
+    .login-card {
+        margin: 0 6%; /* Slight margin so card looks nice */
+        width: 88vw;
+        flex: 0 0 88vw;
     }
 
     .login-header {
         margin-bottom: 20px;
+        padding: 0 6%;
+    }
+
+    /* Dot pagination */
+    .login-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 24px;
+        padding-bottom: 12px;
+    }
+
+    .login-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 77, 141, 0.2);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+    }
+
+    .login-dot.active {
+        background: var(--primary-pink);
+        width: 24px;
+        border-radius: 5px;
     }
 }
 
 @media (max-width: 560px) {
-    .login-page {
-        padding: 16px;
-        margin-left: -4%;
-        margin-right: -4%;
-    }
-
-    .login-hero {
-        grid-template-columns: minmax(260px, 360px) minmax(280px, 340px);
-        gap: 16px;
-    }
-
     .login-card {
         padding: 20px;
     }

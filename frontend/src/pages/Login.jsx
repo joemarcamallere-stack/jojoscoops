@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import '../styles/login.css';
@@ -12,6 +12,8 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [logoutMessage, setLogoutMessage] = useState('');
   const [logoutIsError, setLogoutIsError] = useState(false);
+  const [activeDot, setActiveDot] = useState(0);
+  const scrollRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
   const { showToast } = useToast();
@@ -33,6 +35,19 @@ export default function Login() {
     }
   }, [location.state, location.pathname, navigate]);
 
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const idx = Math.round(el.scrollLeft / el.offsetWidth);
+    setActiveDot(idx);
+  }, []);
+
+  const scrollTo = (idx) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ left: idx * el.offsetWidth, behavior: 'smooth' });
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
@@ -40,7 +55,6 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // Lookup the user's email by their username
       const { data: profileForLogin, error: lookupError } = await supabase
         .from('profiles')
         .select('email')
@@ -60,7 +74,6 @@ export default function Login() {
         throw signInError;
       }
 
-      // We need to fetch the profile to know the role
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
@@ -92,8 +105,8 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <main className="login-hero">
-        <section className="login-intro" aria-label="Brand messaging">
+      <main className="login-hero" ref={scrollRef} onScroll={handleScroll}>
+        <section className="login-intro login-snap-panel" aria-label="Brand messaging">
           <p className="intro-kicker">Welcome back</p>
           <h1>Sign in to keep your <span className="accent">creamy cravings</span> curated.</h1>
           <p>Use your existing account to review carts, follow deliveries, and reorder your favorite scoops without missing a drop from the Jojo's experience.</p>
@@ -113,7 +126,7 @@ export default function Login() {
           </ul>
         </section>
 
-        <section className="login-card" aria-label="Login form">
+        <section className="login-card login-snap-panel" aria-label="Login form">
           <h2>Account Login</h2>
           <p className="card-subtitle">Enter your details to continue.</p>
           {logoutMessage && (
@@ -157,6 +170,22 @@ export default function Login() {
           <p className="signup-hint">Need an account? <Link to="/register">Sign up</Link></p>
         </section>
       </main>
+
+      {/* Dot indicators — visible only on mobile via CSS */}
+      <div className="login-dots">
+        <button
+          type="button"
+          className={`login-dot${activeDot === 0 ? ' active' : ''}`}
+          onClick={() => scrollTo(0)}
+          aria-label="View intro"
+        />
+        <button
+          type="button"
+          className={`login-dot${activeDot === 1 ? ' active' : ''}`}
+          onClick={() => scrollTo(1)}
+          aria-label="View form"
+        />
+      </div>
     </div>
   );
 }

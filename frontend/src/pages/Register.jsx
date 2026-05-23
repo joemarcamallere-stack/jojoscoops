@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import '../styles/login.css'; // use same interface as login
@@ -12,6 +12,8 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [activeDot, setActiveDot] = useState(0);
+  const scrollRef = useRef(null);
   const navigate = useNavigate();
   const { showToast } = useToast();
 
@@ -19,6 +21,19 @@ export default function Register() {
     document.body.classList.add('auth-page');
     return () => document.body.classList.remove('auth-page');
   }, []);
+
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const idx = Math.round(el.scrollLeft / el.offsetWidth);
+    setActiveDot(idx);
+  }, []);
+
+  const scrollTo = (idx) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ left: idx * el.offsetWidth, behavior: 'smooth' });
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -63,8 +78,8 @@ export default function Register() {
 
   return (
     <div className="login-page register-page">
-      <main className="login-hero">
-        <section className="login-intro" aria-label="Brand messaging">
+      <main className="login-hero" ref={scrollRef} onScroll={handleScroll}>
+        <section className="login-intro login-snap-panel" aria-label="Brand messaging">
           <p className="intro-kicker">Join the club</p>
           <h1>Sign up to keep your <span className="accent">creamy cravings</span> curated.</h1>
           <p>Create an account to review carts, follow deliveries, and reorder your favorite scoops without missing a drop from the Jojo's experience.</p>
@@ -84,7 +99,7 @@ export default function Register() {
           </ul>
         </section>
 
-        <section className="login-card" aria-label="Register form">
+        <section className="login-card login-snap-panel" aria-label="Register form">
           <h2>Create Account</h2>
           <p className="card-subtitle">Enter your details to register.</p>
           {error && <div className="form-error" id="error-box">{error}</div>}
@@ -156,6 +171,22 @@ export default function Register() {
           <p className="signup-hint">Already have an account? <Link to="/login">Log in</Link></p>
         </section>
       </main>
+
+      {/* Dot indicators — visible only on mobile via CSS */}
+      <div className="login-dots">
+        <button
+          type="button"
+          className={`login-dot${activeDot === 0 ? ' active' : ''}`}
+          onClick={() => scrollTo(0)}
+          aria-label="View intro"
+        />
+        <button
+          type="button"
+          className={`login-dot${activeDot === 1 ? ' active' : ''}`}
+          onClick={() => scrollTo(1)}
+          aria-label="View form"
+        />
+      </div>
     </div>
   );
 }
