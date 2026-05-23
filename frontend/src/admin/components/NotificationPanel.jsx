@@ -79,6 +79,17 @@ export default function NotificationPanel() {
                 Mark all as read
               </button>
             ) : null}
+            {/* Close button — visible only on mobile */}
+            <button
+              type="button"
+              className="notification-close-btn"
+              aria-label="Close notifications"
+              onClick={(e) => { e.stopPropagation(); setOpen(false); }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
           </div>
         </div>
         <div className="notification-list">
