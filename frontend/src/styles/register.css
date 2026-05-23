@@ -1,0 +1,73 @@
+﻿.signup-page {
+    font-family: inherit;
+    background: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.signup-page .container {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border-radius: 8px; /* Added for smoother look but original was sharp? No, leave it original */
+}
+
+.signup-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.signup-page form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-page input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.signup-page button {
+    width: 100%;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.signup-page button:hover {
+    background: #5a67d8;
+}
+
+.signup-page p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signup-page a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.signup-page a:hover {
+    text-decoration: underline;
+}
+
+.signup-page .error-message {
+    color: #e53e3e;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 500;
+}

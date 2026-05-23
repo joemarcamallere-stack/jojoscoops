@@ -1,0 +1,103 @@
+:root{
+    --primary-pink: #ff4d8d;
+    --dark-text: #1a1a1a;
+    --light-gray: #666;
+}
+
+/* Normalize page shell to match homepage */
+body {
+    font-family: 'Poppins', sans-serif !important;
+    background: #ffffff !important;
+    color: var(--dark-text) !important;
+    min-height: 100vh !important;
+    padding: 0 6% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-x: hidden !important;
+}
+
+/* Header should match homepage header layout */
+.header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 20px 0 16px !important;
+    text-align: left !important;
+}
+
+.header .header-brand {
+    text-decoration: none !important;
+}
+
+.header .header-brand .logo {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 24px !important;
+    font-weight: bold !important;
+}
+
+.header nav a {
+    text-decoration: none !important;
+    color: var(--dark-text) !important;
+    margin: 0 20px !important;
+    font-size: 14px !important;
+}
+
+.header nav a:hover {
+    color: var(--primary-pink) !important;
+}
+
+.header .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+}
+
+.header .header-actions .icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 77, 141, 0.1) !important;
+    color: var(--dark-text) !important;
+    text-decoration: none !important;
+    font-size: 18px !important;
+}
+
+.btn-contact {
+    background: #000 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 12px 25px !important;
+    border-radius: 30px !important;
+    cursor: pointer !important;
+}
+
+/* Hero/buttons */
+.hero-btns {
+    display: flex !important;
+    align-items: center !important;
+    gap: 24px !important;
+}
+
+.btn-shop {
+    background: var(--primary-pink) !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 26px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 10px 20px rgba(255, 77, 141, 0.3) !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+
+/* Make product grid width match homepage max width */
+.product-grid, .product-showcase, .catalog-summary, .notice-banner {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

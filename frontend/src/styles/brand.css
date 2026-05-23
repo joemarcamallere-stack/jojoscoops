@@ -1,0 +1,129 @@
+.header-brand, .header-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--dark-text, #1a1a1a);
+    flex-shrink: 0;
+}
+
+.header-brand .logo, .header-logo .brand-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.header-brand .logo-accent, .header-logo .brand-logo-accent {
+    color: var(--primary-pink, #ff4d8d);
+    transition: color 0.2s ease;
+}
+
+.header-brand:hover .logo-accent, .header-logo:hover .brand-logo-accent {
+    color: #e93b7c;
+}
+
+.header-brand-icon {
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 10px rgba(255, 77, 141, 0.22));
+}
+
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--dark-text, #1a1a1a);
+    flex-shrink: 0;
+}
+
+.brand-logo:hover .brand-logo-accent {
+    color: #e93b7c;
+}
+
+.brand-logo-icon {
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 10px rgba(255, 77, 141, 0.22));
+}
+
+.brand-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.brand-logo-accent {
+    color: var(--primary-pink, #ff4d8d);
+    transition: color 0.2s ease;
+}
+
+.hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 10px 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255, 77, 141, 0.1);
+    color: var(--primary-pink, #ff4d8d);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.footer-logo.brand-logo .brand-logo-text {
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.hero-ice-art {
+    width: min(100%, 420px);
+    max-height: 76vh;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.hero-ice-art svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-scoop-float {
+    transform-origin: 180px 280px;
+    animation: hero-scoop-bob 4s ease-in-out infinite;
+}
+
+@keyframes hero-scoop-bob {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(1.5deg);
+    }
+}
+
+.hero-image .hero-photo {
+    width: min(100%, 860px);
+    max-height: 76vh;
+    object-fit: contain;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.hero-image--branded {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-scoop-float {
+        animation: none;
+    }
+}
