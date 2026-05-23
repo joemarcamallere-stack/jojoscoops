@@ -35,6 +35,20 @@ export default function Login() {
     }
   }, [location.state, location.pathname, navigate]);
 
+  useEffect(() => {
+    if (location.state?.showForm) {
+      // Small delay to ensure DOM is ready and scroll happens
+      setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTo({ left: scrollRef.current.offsetWidth, behavior: 'smooth' });
+          setActiveDot(1);
+        }
+      }, 50);
+      // Clean up state so we don't keep scrolling on re-renders
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state, location.pathname, navigate]);
+
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -173,7 +187,7 @@ export default function Login() {
               {loading ? 'Logging In...' : 'Log In'}
             </button>
           </form>
-          <p className="signup-hint">Need an account? <Link to="/register">Sign up</Link></p>
+          <p className="signup-hint">Need an account? <Link to="/register" state={{ showForm: true }}>Sign up</Link></p>
         </section>
       </main>
 

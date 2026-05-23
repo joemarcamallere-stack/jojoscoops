@@ -1645,4 +1645,45 @@ body.page-shell {
     .footer-newsletter {
         padding: 16px;
     }
-}
+}/* Mobile Checkout Bar */
+.mobile-checkout-bar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-checkout-bar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding: 12px 16px;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        z-index: 100;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    .mobile-checkout-bar .btn-submit {
+        margin: 0;
+        width: auto;
+        padding: 10px 20px;
+    }
+    .mobile-checkout-summary {
+        display: flex;
+        flex-direction: column;
+    }
+    .mobile-checkout-summary strong {
+        color: var(--primary-pink);
+        font-size: 1.1rem;
+    }
+    .mobile-checkout-qty {
+        font-size: 0.8rem;
+        color: #666;
+    }
+    /* Add padding to the bottom of the cart layout so it's not hidden by the bar */
+    .cart-layout {
+        padding-bottom: 80px;
+    }
+}

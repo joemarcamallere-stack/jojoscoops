@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import '../styles/login.css'; // use same interface as login
 import { useToast } from '../context/ToastContext';
@@ -15,12 +15,27 @@ export default function Register() {
   const [activeDot, setActiveDot] = useState(0);
   const scrollRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useToast();
 
   useEffect(() => {
     document.body.classList.add('auth-page');
     return () => document.body.classList.remove('auth-page');
   }, []);
+
+  useEffect(() => {
+    if (location.state?.showForm) {
+      // Small delay to ensure DOM is ready and scroll happens
+      setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTo({ left: scrollRef.current.offsetWidth, behavior: 'smooth' });
+          setActiveDot(1);
+        }
+      }, 50);
+      // Clean up state so we don't keep scrolling on re-renders
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state, location.pathname, navigate]);
 
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
@@ -168,7 +183,7 @@ export default function Register() {
               {loading ? 'Registering...' : 'Register'}
             </button>
           </form>
-          <p className="signup-hint">Already have an account? <Link to="/login">Log in</Link></p>
+          <p className="signup-hint">Already have an account? <Link to="/login" state={{ showForm: true }}>Log in</Link></p>
         </section>
       </main>
 

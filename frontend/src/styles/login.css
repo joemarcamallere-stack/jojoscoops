@@ -340,6 +340,24 @@ body.auth-page {
         padding: 0 6%;
     }
 
+    /* Center the intro text on mobile */
+    .login-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .login-intro p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .login-highlights {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     /* Dot pagination */
     .login-dots {
         display: flex;

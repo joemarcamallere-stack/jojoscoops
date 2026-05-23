@@ -595,6 +595,30 @@ export default function Cart() {
           </div>
         </aside>
       </section>
+
+      {/* Mobile Floating Checkout Button */}
+      {items.length > 0 && selectedItems.length > 0 && (
+        <div className="mobile-checkout-bar">
+          <div className="mobile-checkout-summary">
+            <span>Total: <strong>{formatMoney(grandTotal)}</strong></span>
+            <span className="mobile-checkout-qty">{selectedQty} items</span>
+          </div>
+          <button 
+            type="button" 
+            className="btn-submit" 
+            onClick={() => {
+              const el = document.querySelector('.checkout-sidebar');
+              if (el) {
+                // Ensure it's scrolled enough to clear the floating bar
+                const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+              }
+            }}
+          >
+            Checkout Details
+          </button>
+        </div>
+      )}
     </main>
   );
 }
