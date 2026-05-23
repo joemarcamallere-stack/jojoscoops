@@ -108,7 +108,7 @@ export async function fetchCart(buyId = null) {
       .from('profiles')
       .select('*')
       .eq('id', session.user.id)
-      .single();
+      .maybeSingle();
 
     if (userProfile) {
       profile.name = userProfile.fullname || '';
@@ -150,7 +150,7 @@ export async function addToCart(payload) {
     .select('quantity')
     .eq('cart_token', token)
     .eq('product_id', product_id)
-    .single();
+    .maybeSingle();
 
   const newQty = existing ? existing.quantity + quantity : quantity;
 
@@ -168,7 +168,9 @@ export async function addToCart(payload) {
     return { success: false, message: error.message };
   }
 
-  return { success: true, message: 'Added to cart.' };
+  const countRes = await fetchCartCount();
+
+  return { success: true, message: 'Added to cart.', cart_count: countRes.count };
 }
 
 export async function updateCartItem(payload) {

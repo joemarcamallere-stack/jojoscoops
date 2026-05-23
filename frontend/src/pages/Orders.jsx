@@ -144,7 +144,7 @@ export default function Orders() {
           window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: res.cart_count } }));
         } else {
           fetchCartCount()
-            .then((d) => window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: d.total_items } })))
+            .then((d) => window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: d.count } })))
             .catch(() => {});
         }
         navigate(res.redirect || '/cart#checkout');
