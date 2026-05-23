@@ -24,7 +24,7 @@ const REVIEWS = [
 
 export default function Testimonial() {
   return (
-    <main className="orders-page page-shell" style={{ margin: '0 6%' }}>
+    <main className="orders-page page-shell" style={{ padding: '0 5vw', boxSizing: 'border-box', width: '100%' }}>
       <section className="orders-hero" style={{ margin: '24px 0 0' }}>
         <div className="orders-hero-copy" style={{ textAlign: 'center' }}>
           <p className="section-kicker">Customer stories</p>
