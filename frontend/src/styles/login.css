@@ -304,12 +304,14 @@ body.auth-page {
         width: 100vw;
         padding: 20px 0;
         position: relative;
-        overflow: hidden; /* Prevent page-level scroll */
+        overflow-x: hidden; 
+        overflow-y: auto; /* Allow vertical scroll for keyboard */
     }
 
     .login-hero {
         display: flex;
         overflow-x: auto;
+        overflow-y: visible; /* Allow vertical growth */
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         scrollbar-width: none; /* Firefox */
@@ -327,16 +329,17 @@ body.auth-page {
         flex: 0 0 100vw; /* Each panel is exactly 1 screen wide */
         width: 100vw;
         scroll-snap-align: center;
-        padding: 0 20px; /* Standard padding */
+        padding: 20px 20px 60px; /* Add bottom padding so keyboard doesn't hide inputs */
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start; /* Prevent vertical centering from pushing inputs down */
         align-items: center;
+        overflow-y: auto;
     }
 
     .login-card {
-        margin: 0; 
+        margin: auto; 
         width: 100%;
         max-width: 400px;
     }
@@ -352,6 +355,7 @@ body.auth-page {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        margin: auto;
     }
     
     .login-intro p {
